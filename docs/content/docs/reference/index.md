@@ -1,5 +1,5 @@
 ---
-title: "Docs"
+title: "Reference"
 weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -8,5 +8,3 @@ weight: 1
 # bookComments: false
 # bookSearchExclude: false
 ---
-
-This website contains all the documentation related to the magnesium language
