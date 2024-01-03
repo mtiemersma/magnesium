@@ -1,0 +1,17 @@
+
+/* generated using colors.co */
+:root {
+    --eerie-black: #1c1c1cff; /* background */
+    --moonstone: #489fb5ff;
+    --sky-blue: #82c0ccff;
+    --isabelline: #ede7e3ff;
+    --orange-peel: #ffa62bff;
+}
+
+html {
+    background-color: var(--eerie-black);
+}
+
+p {
+    color: darkgrey;
+}
