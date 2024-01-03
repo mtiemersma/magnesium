@@ -1,10 +1,3 @@
 # macOS files
 .DS_Store
 ._*
-
-# hugo files
-docs/public/
-docs/resources/
-docs/assets/jsconfig.json
-hugo_stats.json
-.hugo_build.lock
