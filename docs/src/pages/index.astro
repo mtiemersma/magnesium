@@ -1,13 +1,7 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
-
-import { getCollection } from "astro:content";
-
-const documentation = await getCollection("docs");
-
-documentation
+import RegularPage from "@layouts/RegularPage.astro";
 ---
 
-<BaseLayout>
-    <p>Hello World</p>
-</BaseLayout>
+<RegularPage>
+    ok
+</RegularPage>
