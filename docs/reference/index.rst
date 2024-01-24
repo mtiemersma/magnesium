@@ -7,4 +7,6 @@ The reference
 
     lexical-conventions
     basic-concepts
+
+    integers
     types

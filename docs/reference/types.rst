@@ -1,18 +1,23 @@
-Types
-=====
+Type system
+===========
 
-The magnesium language provides a few built in core types. These types such as
-integers and the like provide a base to build more complex types.
+The magnesium language provides a lot of high and low level control over types.
+The language supports a lot of object oriented features, mixed with concepts
+from functional languages. This means higher kinded types and generalized
+algabraic data types are supported, but low level things like memory layout and
+alignment can also be specified.
 
+User defined types
+------------------
 
-Integer types
--------------
+Like in haskell, you can define a new algabraic data type using the ``data``
+keyword. A type needs a valid identifier as a name and can be one of three
+types: empty, sum or product.
 
-Note that not all of these types may be available on all platforms. We will 
-try to emulate the types in software if that is enabled.
+This is the syntax for an empty type:
 
-- ``u8, u16, u32, u64, u128``: unsigned integers, the suffix indicates bit count
-- ``i8, u16, i32, i64, i128``: signed integers, the suffix indicates bit count
-- ``f16, f32, f64, f80, f128, f256``: IEEE 754 floating point formats
-- ``d32, d64, d128``: IEEE 754 decimal floating point format
+.. code-block:: magnesium
 
+   data TypeName;
+
+An empty type is mostly useful for 

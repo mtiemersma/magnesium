@@ -48,28 +48,3 @@ literal, but like with keywords, they can be a part of an identifier. So ``0``
 is not a valid identifier but ``0_one_two`` is. It is however strongly
 discouraged to to use numbers in identifiers. Identifiers can also not include
 whitespace.
-
-Keywords
---------
-
-Keywords are special reserved names and directives reserved by the compiler for
-internal use. These cannot be used in source code for other purposes than their
-original meaning.
-
-Here is a list of all currently reserved keywords:
-
-Memory related:
-    - ``new``, allocates memory using the provided allocator
-    - ``delete``, deallocates memory using the provided memory allocator
-
-Variable related:
-    - ``partial``, makes an object partially constructed
-    - ``let``, constructs a new variable using a pattern
-    - ``mut``, used as a modifier with many keywords, makes something mutable
-
-Function related:
-    - ````
-
-Type related:
-    - ``instance``, adds members and constants to types
-    - ``type``, adds a new type
