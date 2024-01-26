@@ -6,7 +6,6 @@ The reference
     :numbered:
 
     lexical-conventions
-    basic-concepts
 
     integers
     types

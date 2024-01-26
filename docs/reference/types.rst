@@ -56,4 +56,46 @@ This is the syntax of tuple types:
 
 .. code-block:: magnesium
 
-   data TupleType()
+   data TupleType(u8, u16)
+
+These tuples are just the same as normal tuples, with the exception that these
+are named. Normal tuple types are made like this:
+
+.. code-block:: magnesium
+
+   (u8, u16)
+
+Generics
+--------
+
+Generics are a way to have type paramters, where you don't need to know the
+actual type but only it's behavior. This can be very general, like only having a
+parameter without constraints, but can be narrowed down using class bounds.
+Generics have to be used or otherwise hidden using phantom syntax.
+
+Generics can be declared using the generics syntax:
+
+.. code-block:: magnesium
+
+   data Name<phantom A, B: Bound1 + Bound2>
+   {
+      content: B
+   }
+
+You can also have parameter packs, which are like tuples of types. These can be
+used to group an arbitrary amount of types, but you can specify constraints such
+as a minimum and maximum amount of required types. You can then unpack these
+parameter packs to use in types. Syntactically these unpacked packs are like a
+comma separated list of the types.
+
+This is the syntax for parameter packs:
+
+.. code-block:: magnesium
+
+   data Name<pack(min: 1, max: 5) A> {
+      content: (unpack A)
+   }
+
+What we also support are const generics, which are constants you pass in the
+same way as normal generics. You can use these const generics in other generics,
+parameter packs and normal code.
