@@ -56,7 +56,7 @@ This is the syntax of tuple types:
 
 .. code-block:: magnesium
 
-   data TupleType(u8, u16)
+   data TupleType(u8, u16);
 
 These tuples are just the same as normal tuples, with the exception that these
 are named. Normal tuple types are made like this:
@@ -98,4 +98,32 @@ This is the syntax for parameter packs:
 
 What we also support are const generics, which are constants you pass in the
 same way as normal generics. You can use these const generics in other generics,
-parameter packs and normal code.
+parameter packs and normal code. Const generics have a type like normal
+variables. const generics can also be phantom.
+
+This is the syntax for const generics:
+
+.. code-block:: magnesium
+
+   data Name <phantom const A: u8>;
+
+Bounded types
+-------------
+
+Bounded types are like existential quantification in haskell. They create a new
+type that cannot be explicitly specified or referenced outside of the type. This
+kind of type uses almost the same syntax as generics. Bounded types are declared
+using the ``forall`` keyword, like in haskell. Bounded types cannot be phantom,
+because there is no way to specify them. So that means they are inferred, which
+is not possible if you don't use them.
+
+Bounded type syntax:
+
+.. code-block:: magnesium
+
+   data Name
+   forall A: Bound1 + Bound2
+   (A, A);
+
+Type classes
+------------

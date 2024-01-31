@@ -1,7 +1,8 @@
-Integer types
+Builtin types
 =============
 
-These following types are built inside the language.
+Number types
+------------
 
 Note that not all of these types may be available on all platforms. We will 
 try to emulate the types in software if that is enabled.

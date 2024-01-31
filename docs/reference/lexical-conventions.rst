@@ -44,7 +44,8 @@ As stated before, identifiers can be made up of any valid utf8 sequence. There
 are some exceptions to this rule however. Identifiers cannot be only keywords,
 but they can include them. For example ``let`` cannot be an identifier, because
 it is a keyword, but ``letter`` is valid. An identifier can also not be a number
-literal, but like with keywords, they can be a part of an identifier. So ``0``
-is not a valid identifier but ``0_one_two`` is. It is however strongly
-discouraged to to use numbers in identifiers. Identifiers can also not include
-whitespace.
+literal, but like with keywords, they can be a part of an identifier. There is
+another restriction with number literals, which is that identifiers cannot start
+with a number literal. So ``0`` is not a valid identifier but ``zero_1_two`` is. 
+It is however strongly discouraged to to use numbers in identifiers. Identifiers
+can also not include whitespace.

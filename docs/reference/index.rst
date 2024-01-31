@@ -7,5 +7,7 @@ The reference
 
     lexical-conventions
 
-    integers
+    functions
+
+    builtin-types
     types
