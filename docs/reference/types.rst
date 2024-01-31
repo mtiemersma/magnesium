@@ -28,7 +28,8 @@ This is the syntax of sum types:
 
 .. code-block:: magnesium
 
-   data SumType {
+   data SumType
+   {
       | Variant1
       | Variant2(u8, u16)
       | Variant {
@@ -45,7 +46,8 @@ This is the syntax of product types:
 
 .. code-block:: magnesium
 
-   data ProductType {
+   data ProductType
+   {
       x: u8,
       y: u16
    }
@@ -92,7 +94,8 @@ This is the syntax for parameter packs:
 
 .. code-block:: magnesium
 
-   data Name<pack(min: 1, max: 5) A> {
+   data Name<pack(min: 1, max: 5) A>
+   {
       content: (unpack A)
    }
 

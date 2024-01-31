@@ -19,7 +19,8 @@ This is function declaration syntax:
 
 .. code-block:: magnesium
 
-    func name(arg1: u8, arg2: u16) u32 {
+    func name(arg1: u8, arg2: u16) u32
+    {
         # function body
     }
 
@@ -28,3 +29,26 @@ Generics and such
 
 Generics, bounded types, and const generics are explained in the
 :doc:`types <types>` section of the reference.
+
+Lambdas and closures
+--------------------
+
+Lambdas are almost equivalent to normal function declarations, except that when
+they are declared, you don't put an identifier behind the ``func`` keyword.
+
+Closures however, are another matter entirely. Closures have to have a so called
+capture list. This is similar to how CPP handles closures. You can capture in a
+few different ways.
+
+- by move
+- by reference, mutable or not
+- by raw pointer, mutable or not
+- by smart pointer
+    - box
+    - shared_box
+    - atomic_box
+
+This is the syntax for 
+.. code-block:: magnesium
+
+    func[]
