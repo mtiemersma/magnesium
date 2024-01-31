@@ -38,7 +38,8 @@ they are declared, you don't put an identifier behind the ``func`` keyword.
 
 Closures however, are another matter entirely. Closures have to have a so called
 capture list. This is similar to how CPP handles closures. You can capture in a
-few different ways.
+few different ways. To give a default mode of capture, the first argument can be
+given without a variable to capture.
 
 - by move
 - by reference, mutable or not
@@ -48,7 +49,26 @@ few different ways.
     - shared_box
     - atomic_box
 
-This is the syntax for 
+There are some restrictions to capturing variables. You cannot capture by
+reference if the closure will leave the scope it is defined in, and anything
+other than capturing by reference or pointer will move the values. By default
+the 
+
+This is the syntax for capture lists, where ``a`` and ``b`` are variables in the
+scope of the function they are defined in.
+
 .. code-block:: magnesium
 
-    func[]
+    func[=] {} # move
+
+    func[&] {} # reference
+    func[&mut] {} # mutable reference
+
+    func[*] {} # raw pointer
+    func[*mut] {} # mutable raw pointer
+
+    func[box] {} # box
+    func[shared_box] {} # shared box
+    func[atomic_box] {} # atomic box
+
+    func[=a, box b] {}
