@@ -44,10 +44,6 @@ given without a variable to capture.
 - by move
 - by reference, mutable or not
 - by raw pointer, mutable or not
-- by smart pointer
-    - box
-    - shared_box
-    - atomic_box
 
 There are some restrictions to capturing variables. You cannot capture by
 reference if the closure will leave the scope it is defined in, and anything
@@ -59,16 +55,10 @@ scope of the function they are defined in.
 
 .. code-block:: magnesium
 
-    func[=] {} # move
+    func[=]() {} # move
 
-    func[&] {} # reference
-    func[&mut] {} # mutable reference
+    func[&]() {} # reference
+    func[&mut]() {} # mutable reference
 
-    func[*] {} # raw pointer
-    func[*mut] {} # mutable raw pointer
-
-    func[box] {} # box
-    func[shared_box] {} # shared box
-    func[atomic_box] {} # atomic box
-
-    func[=a, box b] {}
+    func[*]() {} # raw pointer
+    func[*mut]() {} # mutable raw pointer
