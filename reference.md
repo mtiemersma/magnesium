@@ -235,7 +235,35 @@ while let pattern = expr {}
 
 # module system
 
-import from file
+import
+
 ```
-import ;
+import @"file".item;
+
+import @libname.item;
+
+import item.subitem;
+
+import item.*;
+
+import item.{
+    subitem1,
+    subitem2.subitem3
+};
+
+import item as newname;
 ```
+
+to make an item available to be imported, use pub keyword
+```
+pub func name() {}
+```
+
+this keyword can be modified using a few keywords
+
+```
+pub(pkg) // only in the current package
+pub(mod) // only in the current module
+```
+
+# build tools
