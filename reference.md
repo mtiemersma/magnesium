@@ -1,19 +1,19 @@
 # functions
 
 ```
-func name<T>(a: T): T {};
+func name<T>(a: T): T {}
 
 func name() {
     // long function
-};
+}
 
-func name(): u8 = 1; // only the return type
+func name(): u8 {} // only the return type
 ```
 
 lambdas:
 
 ```
-lambda(x: u8): u8 {1};
+lambda(x: u8): u8 {1}
 ```
 
 as closure with capture list:
@@ -24,7 +24,7 @@ also anything else than move cannot leave the current function
 
 ```
 let x = 1;
-lambda[&] { x }; // x here is of type &usize
+lambda[&] { x } // x here is of type &usize
 
 lambda[&]; // by reference
 lambda[&mut] // by mutable reference
@@ -32,6 +32,7 @@ lambda[&mut] // by mutable reference
 lambda[=] // by move
 lambda[=mut] // by mutable move
 ```
+lambdas can also take arguments and return values without them specifying the types explicitly
 
 coroutines are resumable functions, currently only stackless coroutines
 are supported
@@ -40,6 +41,21 @@ are supported
 co func name() {
     yield;
 }
+```
+
+you can throw typed exceptions
+
+```
+func name() throws u8 {
+    throw 0;
+}
+```
+
+catch exeptions with try blocks
+you can use a block or use a single expression
+
+```
+try {} except pattern {}
 ```
 # types
 
@@ -127,7 +143,10 @@ new raw 1; // *usize
 new raw mut 1; // *mut usize
 ```
 
-you can also get a
+you can also use a function or lambda that modifies the memory in place
+```
+new lambda
+```
 
 # builtin types
 
@@ -177,6 +196,7 @@ match expression
 match expr {
     1 => {},
     2 | 3 => {},
+    a @ 4 => {},
     _ => 0
 }
 ```
