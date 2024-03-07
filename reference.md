@@ -199,6 +199,18 @@ type ConstGeneric<const N: usize, T> = [N]T;
 type Packed<pack(min: 1, max: 5) T> = (unpack T)
 ```
 
+# GADT's
+
+```
+type Name<A, B> = union gadt {
+    Name1<u8, u8>(B),
+    Name2<u16, u16>,
+    Name3<u32, u32> {
+        field: A
+    }
+};
+```
+
 # module system
 
 ```
