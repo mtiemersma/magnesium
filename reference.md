@@ -1,289 +1,226 @@
-# functions
-
-```
-func name<T>(a: T): T {}
-
-func name() {
-    // long function
-}
-
-func name(): u8 {} // only the return type
-```
-
-lambdas:
-
-```
-lambda(x: u8): u8 {1}
-```
-
-as closure with capture list:
-first argument can be without name, in that case its the default for unspecified
-captures
-
-also anything else than move cannot leave the current function
-
-```
-let x = 1;
-lambda[&] { x } // x here is of type &usize
-
-lambda[&]; // by reference
-lambda[&mut] // by mutable reference
-
-lambda[=] // by move
-lambda[=mut] // by mutable move
-```
-lambdas can also take arguments and return values without them specifying the types explicitly
-
-coroutines are resumable functions, currently only stackless coroutines
-are supported
-
-```
-co func name() {
-    yield;
-}
-```
-
-you can throw typed exceptions
-
-```
-func name() throws u8 {
-    throw 0;
-}
-```
-
-catch exeptions with try blocks
-you can use a block or use a single expression
-
-```
-try {} except pattern {}
-```
-# types
-
-```
-type Name<A, B: Bound, pack(min = 1, max = 5) C, D: (* -> * -> *), const ARRAY_SIZE: u8>
-forall a, b: Bound + Bound2.
-{
-    name_a: A,
-    name_b: B,
-    tuple: {a, b},
-    packed: {unpack C},
-    hkt: D<A, B>,
-    sum: forall c, d. {
-        VariantOne of c,
-        VariantTwo of d,
-        MarkerVariantOne,
-        MarkerVariantTwo
-    },
-    array: [ARRAY_SIZE]u8
-}
-
-type Name<A, B> {
-    GADTVariantOne when <u16, u32> of {A, B},
-    GADTVariantTwo when <u32, u64> of {A, B},
-}
-```
-
-# type classes
-```
-class Name <U>
-forall a.
-{
-    func function_one;
-    func function_two(u8, u16): u32;
-    func function_three<A>: A;
-
-    type Associated_T<T>: Bound;
-
-    const ASSOCIATED_CONSTANT: Self.Associated_T;
-}
-```
-
-implement with ``impl``
-
-```
-impl<T> Class<T> for Type {}
-
-impl Class for T; // marker class
-
-impl T {}; // base implementation
-```
-
-you can implement classes with items that have the same name. To specify which
-is used, use absolute module syntax
-
 # variables
 
 ```
-const name = 0;
+const name = val;
 
-static name = 0;
+static name = val;
 
-static mut name = 0;
+static mut name = val;
+
+let name = val;
+
+let mut name = val;
+```
+
+# types
+
+```
+type Name = T;
+
+type alias Name = T;
+
+type Name = struct {
+    field1: T,
+    field2: T,
+};
+
+type Name = union {
+    Name1,
+    Name2(T),
+    Name3 { x, y: i32 }
+}
+
+type Name = (T, T2, T3, ...)
 ```
 
 ```
-let immutable = 0;
+impl T {
+    const name = 0;
 
-let mut mutable = 0;
+    func name() {}
+}
 ```
 
-# memory
-
-to allocate use `new` keyword
-WARNING: anything else than box variants need manual deallocation
-```
-new 1; // Box<usize>
-new ref 1; // RefBox<usize>
-new atomic 1; // AtomicBox<usize>
-
-new reference 1; // &usize
-new reference mut 1; // &mut usize
-
-new raw 1; // *usize
-new raw mut 1; // *mut usize
-```
-
-you can also use a function or lambda that modifies the memory in place
-```
-new lambda
-```
-
-# builtin types
+# functions
 
 ```
-Box<T> // box type
-RefCountBox<T> // reference counted box
-AtomicBox<T> // atomic reference counted box
+func name(x: T): T {}
 
-&T // reference
-&mut T // mutable reference
+func name() {
+    return;
+}
 
-*T // raw pointer
-*mut T // mutable raw pointer
-
-[]T // slice
-[]mut T // mutable slice
-
-[N]T // array of N items
-[N]mut T // mutable array of N items
-
-Uninit<T> // possible unitialized T, acts like normal T, except no method calls
-
-u8, u16, u32, u64, u128 // unsigned integers
-i8, i16, i32, i64, i128 // signed integers
-
-// IEEE 754 floating point numbers
-f16, f32, f64, f128, f256 // binary floating point numbers
+func name(): T {
+    return expr;
+}
 ```
 
-# builtin type classes
+# builtins
 
+types:
 ```
-Tuple, method len(): usize
+u8, u16, u32, u64, u128, usize
+i8, i16, i32, i64, i128, isize
+
+f32, f64
+
+*T, *mut T
+
+*?T, *?mut T
+
+[*]T
+
+[*]? T
+
+[N]T
+
+[]T
+
+[]? T
+
+Uninit<T>
+
+func(T, U, ...): A
 ```
 
 # control flow
 
-if expression
-
 ```
-if expr {} else if {} else {}
-```
+if expr {}
 
-match expression
+if expr {} else {}
+
+if expr {} else if expr {} else {}
+```
 
 ```
 match expr {
-    1 => {},
-    2 | 3 => {},
-    a @ 4 => {},
-    _ => 0
+    1 => expr,
+    2 | 3 => expr,
+    a @ 4 => expr,
+    5 if expr => expr
 }
 ```
 
-for loop
-
 ```
-for x in iter {}
-```
+for expr {}
 
-while loop
+for expr in iter {}
 
-```
-while expr {}
+for {}
 
-do while expr {}
-```
+for {
+    continue;
+}
 
-`continue` skips to next iteration
+for {
+    break;
+}
 
-`break` exits current loop and returns optional value, default is `()`
-
-matching in loops and if statements
-
-```
-if let pattern = expr {}
-
-while let pattern = expr {}
+for {
+    break expr;
+}
 ```
 
 # operators
 
-`-x` unary negation
+```
+x[i]
+x[..]
+x[begin..]
+x[..end]
+x[begin..end]
+x.y
+x?
 
-`x + y` adding
-`x - y` subtraction
-`x * y` multiplication
-`x / y` division
-`x % y` modulo
+*x
+&x
+&mut x
+!x
+~x
 
-`x[]` subscript
-`x.*` dereference
-`&x` take reference
-`&mut` take mutable reference
+x + y
+x - y
+x * y
+x / y
+x % y
 
-`x && y` logical AND
-`x || y` logical OR
-`!x` logical NOT
+x == y
+x != y
+x && y
+x || y
 
-`~x` bitwise not
-`x ^ y` bitwise xor
-`x & y` bitwise and
-`x | y` bitwise or
-`x << y` bitwise left shift
-`x >> y` bitwise right shift
+x ^ y
+x | y
+x & y
+x << y
+x >> y
+```
+
+# type classes
+
+```
+class Name {
+    const name: T;
+
+    const name: isize = 0;
+
+    type Name: Bound;
+
+    type Name: Bound = Default;
+
+    func name(x: T): T;
+
+    func name() {}
+}
+```
+
+```
+impl Class for T {}
+```
+
+# generics
+
+```
+type Name<T> = T;
+
+func name<T>(x: T) {}
+
+class Name<T> {
+    const name: T;
+}
+
+type Name<T: ClassBound> = T;
+
+type HKT<T: (* -> *), U> = T<U>;
+
+type ConstGeneric<const N: usize, T> = [N]T;
+
+type Packed<pack(min: 1, max: 5) T> = (unpack T)
+```
 
 # module system
 
-import
+```
+pub type Name = T; // pub = pub(all)
+
+pub(all)
+
+pub(pkg)
+
+pub(mod)
+```
 
 ```
 import @"file".item;
 
 import @libname.item;
 
-import item.subitem;
+import @libname.module;
+import module.item;
 
-import item.*;
+import @lib.item as rename;
 
-import item.{
-    subitem1,
-    subitem2.subitem3
-};
-
-import item as newname;
+pub import item;
+pub import item as reexport;
 ```
-
-to make an item available to be imported, use pub keyword
-```
-pub func name() {}
-```
-
-this keyword can be modified using a few keywords
-
-```
-pub(pkg) // only in the current package
-pub(mod) // only in the current module
-```
-
-# build tools
