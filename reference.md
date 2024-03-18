@@ -12,6 +12,9 @@ let name = val;
 let mut name = val;
 ```
 
+```
+let name: T = val;
+```
 # types
 
 ```
@@ -34,7 +37,7 @@ type Name = (T, T2, T3, ...)
 ```
 
 ```
-impl T {
+instance T {
     const name = 0;
 
     func name() {}
@@ -57,7 +60,6 @@ func name(): T {
 
 # builtins
 
-types:
 ```
 u8, u16, u32, u64, u128, usize
 i8, i16, i32, i64, i128, isize
@@ -81,6 +83,15 @@ f32, f64
 Uninit<T>
 
 func(T, U, ...): A
+
+Box<T>
+BoxMut<T>
+
+RcBox<T>
+RcMutBox<T>
+
+ArcBox<T>
+ArcMutBox<T>
 ```
 
 # control flow
@@ -235,4 +246,21 @@ import @lib.item as rename;
 
 pub import item;
 pub import item as reexport;
+```
+
+# memory
+
+new expression
+```
+new 1; // Box<usize>
+new mut 1; // BoxMut<usize>
+
+new rc 1; // RcBox<usize>
+new mut rc 1; // RcMutBox<usize>
+
+new arc 1; // ArcBox<usize>
+new mut 1; // ArcMutBox<usize>
+
+new ptr 1; // *usize
+new mut ptr; // *mut usize
 ```
