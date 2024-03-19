@@ -37,11 +37,27 @@ type Name = (T, T2, T3, ...)
 ```
 
 ```
-instance T {
+inst T {
     const name = 0;
 
     func name() {}
 }
+```
+
+keyword `Self` refers to current type
+
+keyword `self` refers to current object
+
+an associated function can take self or a variant of self as arg
+short forms are supported for ptrs and plain objects but not boxes those only have the long form
+same with rc's and arc's
+```
+format = short form | long form
+
+self | self: Self
+
+*self | self: *Self
+*mut self | self: *mut Self
 ```
 
 # functions
@@ -56,6 +72,16 @@ func name() {
 func name(): T {
     return expr;
 }
+
+func name(x, y: T) {}
+```
+
+# lambdas
+
+```
+let name = func(arg1: OptType, arg2): OptReturnT => expr;
+
+let min_syntax = func(arg) => expr;
 ```
 
 # builtins
@@ -187,7 +213,7 @@ class Name {
 ```
 
 ```
-impl Class for T {}
+inst T of Class {}
 ```
 
 # generics
@@ -263,4 +289,40 @@ new mut 1; // ArcMutBox<usize>
 
 new ptr 1; // *usize
 new mut ptr; // *mut usize
+```
+
+new with lambda initialization
+```
+new lambda func(arg: Uninit<T>): Box<T> => expr;
+
+new lambda mut func(arg: Uninit<T>): BoxMut<T> => expr;
+```
+
+delete expression
+```
+delete ptr;
+```
+
+# macros
+
+function style
+```
+macro func name(arg1: untyped, arg2: u8): untyped {
+}
+```
+
+attr style, required arg1: untyped, return untyped
+arg1: item being applied to
+return: item
+```
+macro attr name(in: untyped): untyped {
+}
+```
+
+calling macros:
+```
+func_style_macro$()
+
+$attr_macro()
+// item
 ```
