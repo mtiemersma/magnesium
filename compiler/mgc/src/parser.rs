@@ -1,0 +1,3 @@
+struct TypeDecl {
+    name: Ident
+}

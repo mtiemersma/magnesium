@@ -4,3 +4,7 @@
 
 # vscode dir
 .vscode/
+
+# Rust
+target/
+Cargo.lock
